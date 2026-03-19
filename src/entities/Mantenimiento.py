@@ -1,29 +1,24 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-
-Base = declarative_base()
+from .base import Base
 
 
 class Mantenimiento(Base):
-    __tablename__ = "mantenimientos"
+    __tablename__ = "mantenimiento"
 
-    # PRIMARY KEY
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
 
-    # FOREIGN KEY
-    vehiculo_id = Column(Integer, ForeignKey("vehiculos.id"), nullable=False)
+    vehiculo_id = Column(Integer, ForeignKey("vehiculo.id"), nullable=False)
 
-    # DATOS DEL MANTENIMIENTO
     motivo = Column(String, nullable=False)
     fecha = Column(DateTime, nullable=False)
     estado = Column(String, default="Pendiente")
 
-    # AUDITORÍA (OBLIGATORIA)
+    # auditoría
     fecha_creacion = Column(DateTime, default=func.now(), nullable=False)
     fecha_edicion = Column(DateTime, onupdate=func.now())
-    creado_por = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
-    editado_por = Column(Integer, ForeignKey("usuarios.id"))
+    creado_por = Column(Integer, ForeignKey("usuario.id"), nullable=False)
+    editado_por = Column(Integer, ForeignKey("usuario.id"))
 
-    # RELACIÓN
     vehiculo = relationship("Vehiculo")
