@@ -1,15 +1,20 @@
 import os
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 
-# Cargamos las variables del archivo .env
 load_dotenv()
 
-# Obtenemos la URL de la base de datos
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
-    raise ValueError("No se encontró DATABASE_URL en el archivo .env")
+    raise ValueError("❌ No se encontró DATABASE_URL en el archivo .env")
 
-# Creamos el motor de SQLAlchemy
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL)
+
+SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
+
+
+def get_session():
+    """Retorna una sesión de base de datos."""
+    return SessionLocal()
