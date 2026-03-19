@@ -10,35 +10,14 @@ from src.entities import (
     Venta,
 )
 from src.entities.databases.conexion import engine, get_session
-from src.entities.crud.crud import (
-    crear_usuario,
-    listar_usuarios,
-    editar_usuario,
-    eliminar_usuario,
-    crear_cliente,
-    listar_clientes,
-    editar_cliente,
-    eliminar_cliente,
-    crear_empleado,
-    listar_empleados,
-    editar_empleado,
-    eliminar_empleado,
-    crear_vehiculo,
-    listar_vehiculos,
-    editar_vehiculo,
-    eliminar_vehiculo,
-    crear_metodo_pago,
-    listar_metodos_pago,
-    editar_metodo_pago,
-    eliminar_metodo_pago,
-    crear_mantenimiento,
-    listar_mantenimientos,
-    editar_mantenimiento,
-    eliminar_mantenimiento,
-    crear_venta,
-    listar_ventas,
-    editar_venta,
-    eliminar_venta,
+from src.entities.crud import (
+    crear_usuario, listar_usuarios, editar_usuario, eliminar_usuario,
+    crear_cliente, listar_clientes, editar_cliente, eliminar_cliente,
+    crear_empleado, listar_empleados, editar_empleado, eliminar_empleado,
+    crear_vehiculo, listar_vehiculos, editar_vehiculo, eliminar_vehiculo,
+    crear_metodo_pago, listar_metodos_pago, editar_metodo_pago, eliminar_metodo_pago,
+    crear_mantenimiento, listar_mantenimientos, editar_mantenimiento, eliminar_mantenimiento,
+    crear_venta, listar_ventas, editar_venta, eliminar_venta,
 )
 
 # Crear todas las tablas en Neon al iniciar
