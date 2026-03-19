@@ -11,23 +11,44 @@ from src.entities import (
 )
 from src.entities.databases.conexion import engine, get_session
 from src.entities.crud import (
-    crear_usuario, listar_usuarios, editar_usuario, eliminar_usuario,
-    crear_cliente, listar_clientes, editar_cliente, eliminar_cliente,
-    crear_empleado, listar_empleados, editar_empleado, eliminar_empleado,
-    crear_vehiculo, listar_vehiculos, editar_vehiculo, eliminar_vehiculo,
-    crear_metodo_pago, listar_metodos_pago, editar_metodo_pago, eliminar_metodo_pago,
-    crear_mantenimiento, listar_mantenimientos, editar_mantenimiento, eliminar_mantenimiento,
-    crear_venta, listar_ventas, editar_venta, eliminar_venta,
+    crear_usuario,
+    listar_usuarios,
+    editar_usuario,
+    eliminar_usuario,
+    crear_cliente,
+    listar_clientes,
+    editar_cliente,
+    eliminar_cliente,
+    crear_empleado,
+    listar_empleados,
+    editar_empleado,
+    eliminar_empleado,
+    crear_vehiculo,
+    listar_vehiculos,
+    editar_vehiculo,
+    eliminar_vehiculo,
+    crear_metodo_pago,
+    listar_metodos_pago,
+    editar_metodo_pago,
+    eliminar_metodo_pago,
+    crear_mantenimiento,
+    listar_mantenimientos,
+    editar_mantenimiento,
+    eliminar_mantenimiento,
+    crear_venta,
+    listar_ventas,
+    editar_venta,
+    eliminar_venta,
 )
 
 # Crear todas las tablas en Neon al iniciar
 Base.metadata.create_all(bind=engine)
-print("✅ Tablas sincronizadas con Neon correctamente\n")
+print(" Tablas sincronizadas con Neon correctamente\n")
 
 
 def menu_principal():
     print("\n" + "=" * 50)
-    print("   🚗  CONCESIONARIO DE AUTOS - SISTEMA ORM  🚗")
+    print("     CONCESIONARIO DE AUTOS - SISTEMA ORM  ")
     print("=" * 50)
     print("  1. Usuarios")
     print("  2. Clientes")
@@ -318,9 +339,9 @@ if __name__ == "__main__":
             elif opcion == "7":
                 flujo_venta(session)
             elif opcion == "0":
-                print("\n👋 ¡Hasta luego!")
+                print("\n ¡Hasta luego!")
                 break
             else:
-                print("❌ Opción inválida.")
+                print(" Opción inválida.")
     finally:
         session.close()
