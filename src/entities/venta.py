@@ -1,33 +1,31 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-
-Base = declarative_base()
+from .base import Base
 
 
 class Venta(Base):
-    __tablename__ = "ventas"
+    __tablename__ = "venta"
 
-    # PRIMARY KEY
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
 
-    # FOREIGN KEYS (RELACIONES)
-    vendedor_id = Column(Integer, ForeignKey("vendedores.id"), nullable=False)
-    cliente_id = Column(Integer, ForeignKey("clientes.id"), nullable=False)
-    vehiculo_id = Column(Integer, ForeignKey("vehiculos.id"), nullable=False)
+    # FOREIGN KEYS
+    vendedor_id = Column(Integer, ForeignKey("empleado.id"), nullable=False)
+    cliente_id = Column(Integer, ForeignKey("cliente.id"), nullable=False)
+    vehiculo_id = Column(Integer, ForeignKey("vehiculo.id"), nullable=False)
 
-    # DATOS DE LA VENTA
+    # DATOS
     fecha = Column(DateTime, nullable=False)
     precio_final = Column(Float, nullable=False)
     metodo_pago = Column(String, nullable=False)
 
-    # AUDITORÍA (OBLIGATORIA)
+    # AUDITORÍA
     fecha_creacion = Column(DateTime, default=func.now(), nullable=False)
     fecha_edicion = Column(DateTime, onupdate=func.now())
-    creado_por = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
-    editado_por = Column(Integer, ForeignKey("usuarios.id"))
+    creado_por = Column(Integer, ForeignKey("usuario.id"), nullable=False)
+    editado_por = Column(Integer, ForeignKey("usuario.id"))
 
-    # RELACIONES (OPCIONAL PERO PRO)
-    vendedor = relationship("Vendedor")
+    # RELACIONES
+    vendedor = relationship("Empleado")
     cliente = relationship("Cliente")
     vehiculo = relationship("Vehiculo")

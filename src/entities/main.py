@@ -1,5 +1,5 @@
 from src.entities import Base
-from src.databases.conexion import engine
+from src.entities.databases.conexion import engine
 
 Base.metadata.create_all(bind=engine)
 
