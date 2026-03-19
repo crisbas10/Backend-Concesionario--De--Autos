@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float
-from sqlalchemy.orm import relationship
+﻿from datetime import datetime
+from sqlalchemy import Float, DateTime, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
 from .base import Base
 
@@ -7,25 +8,24 @@ from .base import Base
 class Venta(Base):
     __tablename__ = "venta"
 
-    id = Column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
 
-    # FOREIGN KEYS
-    vendedor_id = Column(Integer, ForeignKey("empleado.id"), nullable=False)
-    cliente_id = Column(Integer, ForeignKey("cliente.id"), nullable=False)
-    vehiculo_id = Column(Integer, ForeignKey("vehiculo.id"), nullable=False)
+    empleado_id: Mapped[int] = mapped_column(ForeignKey("empleado.id"), nullable=False)
+    cliente_id: Mapped[int] = mapped_column(ForeignKey("cliente.id"), nullable=False)
+    vehiculo_id: Mapped[int] = mapped_column(ForeignKey("vehiculo.id"), nullable=False)
+    metodo_pago_id: Mapped[int] = mapped_column(ForeignKey("metodo_pago.id"), nullable=False)
 
-    # DATOS
-    fecha = Column(DateTime, nullable=False)
-    precio_final = Column(Float, nullable=False)
-    metodo_pago = Column(String, nullable=False)
+    fecha: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    precio_final: Mapped[float] = mapped_column(Float, nullable=False)
 
-    # AUDITORÍA
-    fecha_creacion = Column(DateTime, default=func.now(), nullable=False)
-    fecha_edicion = Column(DateTime, onupdate=func.now())
-    creado_por = Column(Integer, ForeignKey("usuario.id"), nullable=False)
-    editado_por = Column(Integer, ForeignKey("usuario.id"))
+    fecha_creacion: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), nullable=False)
+    fecha_edicion: Mapped[datetime] = mapped_column(DateTime, onupdate=func.now(), nullable=True)
+    id_usuario_creacion: Mapped[int] = mapped_column(ForeignKey("usuario.id"), nullable=False)
+    id_usuario_edita: Mapped[int] = mapped_column(ForeignKey("usuario.id"), nullable=True)
 
-    # RELACIONES
-    vendedor = relationship("Empleado")
-    cliente = relationship("Cliente")
-    vehiculo = relationship("Vehiculo")
+    empleado = relationship("Empleado", foreign_keys=[empleado_id])
+    cliente = relationship("Cliente", foreign_keys=[cliente_id])
+    vehiculo = relationship("Vehiculo", foreign_keys=[vehiculo_id])
+    metodo_pago = relationship("MetodoPago", foreign_keys=[metodo_pago_id])
+    usuario_creacion = relationship("Usuario", foreign_keys=[id_usuario_creacion])
+    usuario_edita = relationship("Usuario", foreign_keys=[id_usuario_edita])
