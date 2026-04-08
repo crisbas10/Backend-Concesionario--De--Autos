@@ -9,7 +9,7 @@ from src.entities.crud.crud_metodo_pago import (
     eliminar_metodo_pago,
 )
 
-router = APIRouter(prefix="/metodos-pago", tags=["Métodos de Pago"])
+routers = APIRouter(prefix="/metodos-pago", tags=["Métodos de Pago"])
 
 
 def get_db():
@@ -28,12 +28,12 @@ class MetodoPagoUpdate(BaseModel):
     tipo: str
 
 
-@router.get("/")
+@routers.get("/")
 def listar(db: Session = Depends(get_db)):
     return listar_metodos_pago(db)
 
 
-@router.get("/{metodo_id}")
+@routers.get("/{metodo_id}")
 def obtener(metodo_id: int, db: Session = Depends(get_db)):
     from src.entities.metodo_pago import MetodoPago
 
@@ -43,12 +43,12 @@ def obtener(metodo_id: int, db: Session = Depends(get_db)):
     return metodo
 
 
-@router.post("/", status_code=201)
+@routers.post("/", status_code=201)
 def crear(data: MetodoPagoCreate, db: Session = Depends(get_db)):
     return crear_metodo_pago(db, data.tipo)
 
 
-@router.put("/{metodo_id}")
+@routers.put("/{metodo_id}")
 def editar(metodo_id: int, data: MetodoPagoUpdate, db: Session = Depends(get_db)):
     resultado = editar_metodo_pago(db, metodo_id, data.tipo)
     if not resultado:
@@ -56,7 +56,7 @@ def editar(metodo_id: int, data: MetodoPagoUpdate, db: Session = Depends(get_db)
     return resultado
 
 
-@router.delete("/{metodo_id}")
+@routers.delete("/{metodo_id}")
 def eliminar(metodo_id: int, db: Session = Depends(get_db)):
     from src.entities.metodo_pago import MetodoPago
 

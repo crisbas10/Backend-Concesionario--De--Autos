@@ -9,7 +9,7 @@ from src.entities.crud.crud_vehiculo import (
     eliminar_vehiculo,
 )
 
-router = APIRouter(prefix="/vehiculos", tags=["Vehículos"])
+routers = APIRouter(prefix="/vehiculos", tags=["Vehículos"])
 
 
 def get_db():
@@ -42,12 +42,12 @@ class VehiculoUpdate(BaseModel):
     id_usuario_edita: int
 
 
-@router.get("/")
+@routers.get("/")
 def listar(db: Session = Depends(get_db)):
     return listar_vehiculos(db)
 
 
-@router.get("/{vehiculo_id}")
+@routers.get("/{vehiculo_id}")
 def obtener(vehiculo_id: int, db: Session = Depends(get_db)):
     from src.entities.vehiculo import Vehiculo
 
@@ -57,7 +57,7 @@ def obtener(vehiculo_id: int, db: Session = Depends(get_db)):
     return vehiculo
 
 
-@router.post("/", status_code=201)
+@routers.post("/", status_code=201)
 def crear(data: VehiculoCreate, db: Session = Depends(get_db)):
     return crear_vehiculo(
         db,
@@ -72,7 +72,7 @@ def crear(data: VehiculoCreate, db: Session = Depends(get_db)):
     )
 
 
-@router.put("/{vehiculo_id}")
+@routers.put("/{vehiculo_id}")
 def editar(vehiculo_id: int, data: VehiculoUpdate, db: Session = Depends(get_db)):
     cambios = data.model_dump(exclude={"id_usuario_edita"}, exclude_none=True)
     resultado = editar_vehiculo(db, vehiculo_id, data.id_usuario_edita, **cambios)
@@ -81,7 +81,7 @@ def editar(vehiculo_id: int, data: VehiculoUpdate, db: Session = Depends(get_db)
     return resultado
 
 
-@router.delete("/{vehiculo_id}")
+@routers.delete("/{vehiculo_id}")
 def eliminar(vehiculo_id: int, db: Session = Depends(get_db)):
     from src.entities.vehiculo import Vehiculo
 

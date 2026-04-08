@@ -10,7 +10,7 @@ from src.entities.crud.crud_venta import (
     eliminar_venta,
 )
 
-router = APIRouter(prefix="/ventas", tags=["Ventas"])
+routers = APIRouter(prefix="/ventas", tags=["Ventas"])
 
 
 def get_db():
@@ -36,12 +36,12 @@ class VentaUpdate(BaseModel):
     id_usuario_edita: int
 
 
-@router.get("/")
+@routers.get("/")
 def listar(db: Session = Depends(get_db)):
     return listar_ventas(db)
 
 
-@router.get("/{venta_id}")
+@routers.get("/{venta_id}")
 def obtener(venta_id: int, db: Session = Depends(get_db)):
     from src.entities.venta import Venta
 
@@ -51,7 +51,7 @@ def obtener(venta_id: int, db: Session = Depends(get_db)):
     return venta
 
 
-@router.post("/", status_code=201)
+@routers.post("/", status_code=201)
 def crear(data: VentaCreate, db: Session = Depends(get_db)):
     return crear_venta(
         db,
@@ -65,7 +65,7 @@ def crear(data: VentaCreate, db: Session = Depends(get_db)):
     )
 
 
-@router.put("/{venta_id}")
+@routers.put("/{venta_id}")
 def editar(venta_id: int, data: VentaUpdate, db: Session = Depends(get_db)):
     cambios = data.model_dump(exclude={"id_usuario_edita"}, exclude_none=True)
     resultado = editar_venta(db, venta_id, data.id_usuario_edita, **cambios)
@@ -74,7 +74,7 @@ def editar(venta_id: int, data: VentaUpdate, db: Session = Depends(get_db)):
     return resultado
 
 
-@router.delete("/{venta_id}")
+@routers.delete("/{venta_id}")
 def eliminar(venta_id: int, db: Session = Depends(get_db)):
     from src.entities.venta import Venta
 
