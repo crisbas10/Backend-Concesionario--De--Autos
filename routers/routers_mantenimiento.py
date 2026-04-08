@@ -10,7 +10,7 @@ from src.entities.crud.crud_Mantenimiento import (
     eliminar_mantenimiento,
 )
 
-router = APIRouter(prefix="/mantenimientos", tags=["Mantenimientos"])
+routers = APIRouter(prefix="/mantenimientos", tags=["Mantenimientos"])
 
 
 def get_db():
@@ -35,12 +35,12 @@ class MantenimientoUpdate(BaseModel):
     id_usuario_edita: int
 
 
-@router.get("/")
+@routers.get("/")
 def listar(db: Session = Depends(get_db)):
     return listar_mantenimientos(db)
 
 
-@router.get("/{mantenimiento_id}")
+@routers.get("/{mantenimiento_id}")
 def obtener(mantenimiento_id: int, db: Session = Depends(get_db)):
     from src.entities.Mantenimiento import Mantenimiento
 
@@ -50,7 +50,7 @@ def obtener(mantenimiento_id: int, db: Session = Depends(get_db)):
     return m
 
 
-@router.post("/", status_code=201)
+@routers.post("/", status_code=201)
 def crear(data: MantenimientoCreate, db: Session = Depends(get_db)):
     return crear_mantenimiento(
         db,
@@ -62,7 +62,7 @@ def crear(data: MantenimientoCreate, db: Session = Depends(get_db)):
     )
 
 
-@router.put("/{mantenimiento_id}")
+@routers.put("/{mantenimiento_id}")
 def editar(
     mantenimiento_id: int, data: MantenimientoUpdate, db: Session = Depends(get_db)
 ):
@@ -75,7 +75,7 @@ def editar(
     return resultado
 
 
-@router.delete("/{mantenimiento_id}")
+@routers.delete("/{mantenimiento_id}")
 def eliminar(mantenimiento_id: int, db: Session = Depends(get_db)):
     from src.entities.Mantenimiento import Mantenimiento
 
