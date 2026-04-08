@@ -8,65 +8,69 @@ from src.entities.crud.crud_empleado import (
     editar_empleado,
     eliminar_empleado,
 )
- 
-router = APIRouter(prefix="/empleados", tags=["Empleados"])
- 
- 
+
+routers = APIRouter(prefix="/empleados", tags=["Empleados"])
+
+
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
- 
- 
+
+
 class EmpleadoCreate(BaseModel):
     nombre: str
     telefono: str
     correo: str
     salario: float
     cargo: str
- 
- 
+
+
 class EmpleadoUpdate(BaseModel):
     nombre: str | None = None
     telefono: str | None = None
     correo: str | None = None
     salario: float | None = None
     cargo: str | None = None
- 
- 
-@router.get("/")
+
+
+@routers.get("/")
 def listar(db: Session = Depends(get_db)):
     return listar_empleados(db)
- 
- 
-@router.get("/{empleado_id}")
+
+
+@routers.get("/{empleado_id}")
 def obtener(empleado_id: int, db: Session = Depends(get_db)):
     from src.entities.empleado import Empleado
+
     empleado = db.query(Empleado).filter(Empleado.id == empleado_id).first()
     if not empleado:
         raise HTTPException(status_code=404, detail="Empleado no encontrado")
     return empleado
- 
- 
-@router.post("/", status_code=201)
+
+
+@routers.post("/", status_code=201)
 def crear(data: EmpleadoCreate, db: Session = Depends(get_db)):
-    return crear_empleado(db, data.nombre, data.telefono, data.correo, data.salario, data.cargo)
- 
- 
-@router.put("/{empleado_id}")
+    return crear_empleado(
+        db, data.nombre, data.telefono, data.correo, data.salario, data.cargo
+    )
+
+
+@routers.put("/{empleado_id}")
 def editar(empleado_id: int, data: EmpleadoUpdate, db: Session = Depends(get_db)):
     cambios = data.model_dump(exclude_none=True)
     resultado = editar_empleado(db, empleado_id, **cambios)
     if not resultado:
         raise HTTPException(status_code=404, detail="Empleado no encontrado")
     return resultado
- 
- 
-@router.delete("/{empleado_id}")
+
+
+@routers.delete("/{empleado_id}")
 def eliminar(empleado_id: int, db: Session = Depends(get_db)):
     from src.entities.empleado import Empleado
+
     empleado = db.query(Empleado).filter(Empleado.id == empleado_id).first()
     if not empleado:
         raise HTTPException(status_code=404, detail="Empleado no encontrado")
