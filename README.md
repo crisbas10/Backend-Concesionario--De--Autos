@@ -112,7 +112,6 @@ project/
 │── main.py
 │── models/
 │── routes/
-│── schemas/
 │── database/
 ```
 
