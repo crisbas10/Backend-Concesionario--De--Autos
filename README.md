@@ -74,22 +74,12 @@ El sistema permite:
 *  Actualizar información
 *  Eliminar registros
 
----
-
-##  Pruebas
-
-Las operaciones CRUD se ejecutan desde el archivo `main.py`, donde se:
-
-* Insertan datos de prueba
-* Se actualizan registros
-* Se eliminan datos
-* Se muestran resultados en consola
 
 ---
 
 ##  Resultados Esperados
 
-* Creación automática de tablas en la base de datos
+* Creación automática de tablas en la base de datos al usar la pagina web
 * Persistencia de datos
 * Correcta ejecución de operaciones CRUD
 
@@ -107,4 +97,5 @@ En el siguiente video se muestra el funcionamiento del sistema, incluyendo la cr
 
 En el siguiente video se muestra el funcionamiento del sistema, incluyendo la creación de tablas, operaciones CRUD y la conexión con la base de datos:
 
-[![Ver video](https://img.youtube.com/vi/ZuKpEtN7IMI/0.jpg)](https://youtu.be/ZuKpEtN7IMI)
+https://canva.link/rgfhu5cwfcuwyj0
+
