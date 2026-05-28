@@ -21,7 +21,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://danisconcesionario.netlify.app/"],
+    allow_origins=["https://danisconcesionario.netlify.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,13 +35,10 @@ app.include_router(router_metodo_pago)
 app.include_router(router_mantenimiento)
 app.include_router(router_venta)
 
-
 @app.get("/")
 def root():
     return {"mensaje": "Bienvenido a la API del Concesionario de Autos"}
 
-
 if __name__ == "__main__":
     import uvicorn
-
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
