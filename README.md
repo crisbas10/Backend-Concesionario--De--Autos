@@ -1,110 +1,135 @@
-#  Backend Concesionario de Autos
+#  Proyecto API REST con FastAPI
 
-##  Descripción del Proyecto
+##  Descripción
 
-Este proyecto consiste en el desarrollo de un backend para la gestión de un concesionario de autos, implementado en Python utilizando SQLAlchemy como ORM y una base de datos relacional (Neon/PostgreSQL o SQLite).
+Este proyecto consiste en la integración de una API REST utilizando **FastAPI** sobre un proyecto base que ya cuenta con ORM. La aplicación está diseñada para exponer endpoints que permiten realizar operaciones CRUD completas sobre las entidades del sistema.
 
-El sistema permite administrar la información relacionada con usuarios, clientes, empleados, vehículos, ventas, métodos de pago y mantenimientos, aplicando operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre cada entidad.
-
----
-
-## Objetivo
-
-Desarrollar una aplicación backend estructurada y modular que permita simular el funcionamiento de un concesionario, cumpliendo con los requisitos del examen 3:
-
-* Modelado de entidades
-* Relaciones entre tablas
-* Implementación de CRUD
-* Uso de ORM (SQLAlchemy)
-* Conexión a base de datos
-* Buenas prácticas de organización del código
+La ejecución principal de la aplicación está orientada a la API desde el archivo `main`.
 
 ---
 
-## Estructura del Proyecto
+##  Objetivo
+
+Integrar una API REST con FastAPI sobre el proyecto existente con ORM, permitiendo la gestión de entidades mediante endpoints documentados y probados.
+
+---
+
+##  Tecnologías utilizadas
+
+* Python
+* FastAPI
+* Uvicorn
+* ORM (del proyecto base)
+* Swagger (documentación automática)
+
+---
+
+##  Requerimientos implementados
+
+ Uso del proyecto base con ORM
+
+ Implementación de API con FastAPI
+
+ Ejecución del servidor con Uvicorn
+
+ Configuración principal centralizada en `main`
+
+ Documentación automática con Swagger
+
+ Implementación de endpoints CRUD por cada entidad:
+
+* GET lista
+* GET por ID
+* POST (crear)
+* PUT (actualizar)
+* DELETE (eliminar)
+
+---
+
+##  Ejecución del proyecto
+
+1. Instalar dependencias:
+
+```bash
+pip install fastapi uvicorn
+```
+
+2. Ejecutar el servidor:
+
+```bash
+uvicorn main:app --reload
+```
+
+3. Acceder a la documentación Swagger:
 
 ```
-src/
- ├── entities/        # Modelos de la base de datos
- ├── databases/       # Conexión a la base de datos
- ├── crud/            # Operaciones CRUD
- └── main.py          # Ejecución principal
+http://127.0.0.1:8000/docs
 ```
 
 ---
 
-##  Entidades del Sistema
+##  Funcionalidades principales
 
-El sistema está compuesto por las siguientes entidades:
-
-*  Usuario (control de acceso y auditoría)
-*  Cliente
-*  Empleado
-*  Vehículo
-*  Venta
-*  Método de Pago
-*  Mantenimiento
-
----
-
-##  Relaciones
-
-* Un cliente puede realizar varias ventas
-* Un vehículo puede ser vendido
-* Una venta está asociada a un cliente, vehículo y método de pago
-* Los registros incluyen auditoría mediante usuario de creación y edición
-
----
-
-##  Tecnologías Utilizadas
-
-* Python 
-* SQLAlchemy
-* PostgreSQL (Neon) / SQLite
-* dotenv
-* Alembic 
-
-
-##  Funcionalidades (CRUD)
-
-El sistema permite:
-
-*  Crear registros
-*  Consultar datos
-*  Actualizar información
-*  Eliminar registros
+* Creación de registros
+* Consulta de registros
+* Actualización de información
+* Eliminación de registros
+* Persistencia de datos mediante ORM
 
 ---
 
 ##  Pruebas
 
-Las operaciones CRUD se ejecutan desde el archivo `main.py`, donde se:
+Las pruebas se realizaron mediante Swagger, verificando:
 
-* Insertan datos de prueba
-* Se actualizan registros
-* Se eliminan datos
-* Se muestran resultados en consola
+* Creación correcta de registros
+* Edición de datos
+* Eliminación de registros
+* Consulta por ID y listado general
 
 ---
 
-##  Resultados Esperados
+##  Evidencia en video
 
-* Creación automática de tablas en la base de datos
-* Persistencia de datos
-* Correcta ejecución de operaciones CRUD
+El video evidencia:
 
-##  Notas Finales
+* Ejecución del servidor con Uvicorn
+* Uso de Swagger para pruebas
+* Funcionamiento de todos los endpoints
+* Verificación de operaciones en base de datos (Neon):
 
-Este proyecto cumple con los requisitos establecidos en el examen 3, aplicando conceptos de bases de datos, programación orientada a objetos y desarrollo backend con Python.
+  * Registro creado
+  * Registro actualizado
+  * Registro eliminado
 
-##  Video de Demostración
 
-En el siguiente video se muestra el funcionamiento del sistema, incluyendo la creación de tablas, operaciones CRUD y la conexión con la base de datos:
+---
 
-## 🎥 Video de Demostración
+##  Estructura del proyecto (general)
 
- ## 🎥 Video de Demostración
+```
+project/
+│── main.py
+│── models/
+│── routes/
+│── database/
+```
 
-En el siguiente video se muestra el funcionamiento del sistema, incluyendo la creación de tablas, operaciones CRUD y la conexión con la base de datos:
+---
 
-[![Ver video](https://img.youtube.com/vi/ZuKpEtN7IMI/0.jpg)](https://youtu.be/ZuKpEtN7IMI)
+##  Conclusión
+
+Se logró integrar correctamente una API REST con FastAPI sobre un proyecto existente con ORM, permitiendo la gestión completa de entidades mediante endpoints bien definidos y documentados automáticamente con Swagger.
+
+El sistema cumple con todos los requerimientos del taller y permite validar las operaciones directamente sobre la base de datos.
+
+---
+
+##  Autores
+
+* Sebastian Chavarria Rojas
+* Alejandro Patiño Rendón
+* Daniela Giraldo Gino
+Link del video (Canva):
+https://canva.link/rgfhu5cwfcuwyj0
+
