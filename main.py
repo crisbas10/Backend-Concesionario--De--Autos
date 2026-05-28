@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from src.entities import Base
 from src.entities.databases.conexion import engine
 
@@ -10,7 +11,6 @@ from routers.routers_metodo_pago import routers as router_metodo_pago
 from routers.routers_mantenimiento import routers as router_mantenimiento
 from routers.routers_venta import routers as router_venta
 
-# Crear tablas en Neon al iniciar
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -19,7 +19,14 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Registrar routers
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://danisconcesionario.netlify.app/"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(router_usuario)
 app.include_router(router_cliente)
 app.include_router(router_empleado)
@@ -31,7 +38,7 @@ app.include_router(router_venta)
 
 @app.get("/")
 def root():
-    return {"mensaje": "Bienvenido a la API del Concesionario de Autos "}
+    return {"mensaje": "Bienvenido a la API del Concesionario de Autos"}
 
 
 if __name__ == "__main__":
